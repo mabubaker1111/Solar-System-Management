@@ -20,7 +20,7 @@
                 <th scope="col">Name</th>
                 <th scope="col">Email</th>
                 <th scope="col">Requested At</th>
-                <th scope="col">Actions</th>
+                {{-- <th scope="col">Actions</th> --}}
             </tr>
         </thead>
         <tbody>
@@ -30,7 +30,7 @@
                 <td data-title="Name">{{ $worker->user->name }}</td>
                 <td data-title="Email">{{ $worker->user->email }}</td>
                 <td data-title="Requested At">{{ $worker->created_at->format('d-M-Y') }}</td>
-                <td data-title="Actions">
+                {{-- <td data-title="Actions">
                     <div class="d-flex justify-content-center gap-2">
                         <form action="{{ route('superadmin.worker.approve', $worker->id) }}" method="POST">
                             @csrf
@@ -42,7 +42,7 @@
                             <button type="submit" class="btn btn-danger btn-sm bi bi-x-circle-fill"></button>
                         </form>
                     </div>
-                </td>
+                </td> --}}
             </tr>
             @endforeach
         </tbody>

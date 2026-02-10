@@ -18,7 +18,7 @@
                 <th scope="col">Address</th>
                 <th scope="col">Status</th>
                 <th scope="col">Registered At</th>
-                <th scope="col">Actions</th>
+                {{-- <th scope="col">Actions</th> --}}
             </tr>
         </thead>
         <tbody>
@@ -31,7 +31,7 @@
                 <td data-title="Address">{{ $worker->user->address }}</td>
                 <td data-title="Status">{{ ucfirst($worker->status) }}</td>
                 <td data-title="Registered At">{{ $worker->created_at->format('d-M-Y') }}</td>
-                <td data-title="Actions">
+                {{-- <td data-title="Actions">
                     @if($worker->status == 'pending')
                     <form action="{{ route('superadmin.worker.approve', $worker->id) }}" method="POST" style="display:inline;">
                         @csrf
@@ -45,7 +45,7 @@
                     @else
                     <span class="text-muted">No actions</span>
                     @endif
-                </td>
+                </td> --}}
             </tr>
             @endforeach
         </tbody>

@@ -31,6 +31,11 @@ class User extends Authenticatable
             'owner_id'
         );
     }
+    public function client()
+    {
+        return $this->hasOne(\App\Models\Client\Client::class);
+    }
+
 
     public function worker()
     {

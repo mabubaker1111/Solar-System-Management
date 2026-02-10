@@ -9,18 +9,33 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('clients', function (Blueprint $table) {
-            $table->string('address')->after('phone');
-            $table->string('city')->after('address');
+
+            if (!Schema::hasColumn('clients', 'address')) {
+                $table->string('address')->after('phone');
+            }
+
+            if (!Schema::hasColumn('clients', 'city')) {
+                $table->string('city')->after('address');
+            }
         });
     }
 
-    public function down()
-    {
-        Schema::table('clients', function (Blueprint $table) {
-            $table->dropColumn(['address', 'city']);
-        });
-    }
+
+    public function down(): void
+{
+    Schema::table('clients', function (Blueprint $table) {
+
+        if (Schema::hasColumn('clients', 'city')) {
+            $table->dropColumn('city');
+        }
+
+        if (Schema::hasColumn('clients', 'address')) {
+            $table->dropColumn('address');
+        }
+    });
+}
+
 };

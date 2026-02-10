@@ -9,11 +9,13 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
-        Schema::table('clients', function (Blueprint $table) {
-            $table->string('phone')->after('email');
-        });
+        if (!Schema::hasColumn('clients', 'phone')) {
+            Schema::table('clients', function (Blueprint $table) {
+                $table->string('phone')->after('email');
+            });
+        }
     }
 
     public function down()

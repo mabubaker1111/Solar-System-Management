@@ -39,6 +39,15 @@ Route::prefix('client')->name('client.')->group(function () {
         Route::post('/login', [ClientController::class, 'login'])->name('login.submit');
     });
 
+
+    Route::get('/', [FrontendController::class, 'homePage'])->name('frontend.home');
+
+    // Route::get('/client/business/{id}', [FrontendController::class, 'businessDetails'])
+    //     ->name('client.business.details');
+
+
+
+
     // Authenticated routes
     Route::middleware(['auth', 'role:client'])->group(function () {
         Route::get('/dashboard', [ClientController::class, 'dashboard'])->name('dashboard');

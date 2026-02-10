@@ -29,7 +29,7 @@ class ClientRequestController extends Controller
         $request->validate([
             'service_id'  => 'required|exists:services,id',
             'business_id' => 'required|exists:businesses,id',
-            'deadline'    => 'required|date|after:now', 
+            'deadline'    => 'required|date|after:now',
             'notes'       => 'nullable|string',
         ]);
 
@@ -37,6 +37,7 @@ class ClientRequestController extends Controller
 
         $sr = ServiceRequest::create([
             'client_id'   => Auth::id(),
+            'user_id'     => Auth::id(), 
             'service_id'  => $request->service_id,
             'business_id' => $request->business_id,
             'notes'       => $request->notes,
@@ -46,6 +47,7 @@ class ClientRequestController extends Controller
             'time'        => now()->toTimeString(),
             'status'      => 'pending',
         ]);
+
 
         // Notify business owner
         $sr->business->owner->notify(new NewServiceRequest($sr));

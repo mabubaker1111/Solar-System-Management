@@ -77,6 +77,7 @@ class BusinessController extends Controller
     }
     public function storeClient(Request $request)
     {
+        //  dd($request->all());
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
@@ -105,15 +106,22 @@ class BusinessController extends Controller
             'city' => $request->city,
         ]);
 
-        // 3️⃣ Create SERVICE REQUEST
+        
+        $business = Business::where('owner_id', Auth::id())->firstOrFail();
+
         $serviceRequest = ServiceRequest::create([
-            'client_id' => $client->id,
-            'service_id' => $request->service_id,
-            'deadline' => $request->deadline,
+            'client_id'   => $user->id,
+            'user_id'     => $user->id,        
+            'business_id' => $business->id,      
+            'service_id'  => $request->service_id,
+            'deadline'    => $request->deadline,
             'description' => $request->description,
+            'status'      => 'pending',
         ]);
 
+
         // 4️⃣ Assign WORKER SHIFT
+         dd($request->all());
         WorkerShiftBooking::create([
             'worker_shift_id' => $request->worker_shift_id,
             'client_request_id' => $serviceRequest->id,

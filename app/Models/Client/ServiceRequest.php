@@ -12,6 +12,7 @@ class ServiceRequest extends Model
 {
     protected $fillable = [
         'client_id',
+        'user_id',          // ✅ YEH LINE ADD KARO (MOST IMPORTANT)
         'business_id',
         'service_id',
         'full_payment',
@@ -20,16 +21,17 @@ class ServiceRequest extends Model
         'quantity',
         'final_amount',
         'remaining_amount',
-        'worker_id', 
+        'worker_id',
         'date',
         'time',
         'notes',
         'price',
         'status',
         'message',
-        'deadline',           
-        'deadline_notified',  
+        'deadline',
+        'deadline_notified',
     ];
+
 
     // FIXED: client belongs to USER, not Client model
     public function client()

@@ -24,6 +24,33 @@
                 <h1 class="mb-4">We Are Pioneers In The World Of Renewable Energy</h1>
             </div>
             <div class="row g-4">
+
+{{-- @extends('client.layout')
+@section('title', 'Browse Businesses')
+
+@section('content') --}}
+<h3 class="fw-bold mb-4 text-center wow fadeInUp" data-wow-delay="0.1s">Available Businesses</h3>
+
+<div class="row wow fadeInUp" >
+@foreach($businesses as $b)
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body d-flex flex-column">
+                <h5 class="fw-bold">Name: {{ $b->business_name }}</h5>
+                <p class="mt-2 text-muted">Description: {{ Str::limit($b->description,70) }}</p>
+                <p class="mt-0 text-muted">Location: {{ Str::limit($b->address,70) }}</p>
+                <div class="mt-auto">
+                    <a href="{{ route('client.business.details', $b->id) }}" class="btn btn-outline-primary btn-sm w-100">View Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+@endforeach
+</div>
+{{-- @endsection --}}
+
+
+
                 <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="service-item rounded overflow-hidden">
                         <img class="img-fluid" src="{{asset('assets/img/img-600x400-1.jpg')}}" alt="">

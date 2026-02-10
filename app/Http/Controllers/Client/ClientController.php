@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-
+use App\Models\Client\Client;
 use App\Models\User;
 use App\Models\Client\ServiceRequest;
 use App\Models\Business\Business;
@@ -43,6 +43,17 @@ class ClientController extends Controller
                 'status'   => 'approved',
                 'password' => Hash::make($request->password),
             ]);
+
+            // ✅ Client table me record lazmi create karo
+            Client::create([
+                'user_id' => $user->id,
+                'phone'   => $request->phone,
+                'address' => $request->address,
+                'city'    => 'N/A',
+            ]);
+
+
+
 
             $user->notify(new UserRegistered($user));
 
@@ -94,13 +105,26 @@ class ClientController extends Controller
         try {
             $user = Auth::user();
 
+            // User notifications
             $notifications = $user->notifications()->latest()->get();
 
-            $latestQuery = \App\Models\Query::where('client_id', $user->id)->latest()->first();
+            // ✅ Correct client reference (NOT user_id)
+            $client = $user->client;
 
+            // Latest query of this client
+            $latestQuery = $client
+                ? \App\Models\Query::where('client_id', $client->id)->latest()->first()
+                : null;
+
+            // Check unread replies
             $unreadReplies = $latestQuery && $latestQuery->response ? 1 : 0;
 
-            return view('client.dashboard', compact('user', 'notifications', 'latestQuery', 'unreadReplies'));
+            return view('client.dashboard', compact(
+                'user',
+                'notifications',
+                'latestQuery',
+                'unreadReplies'
+            ));
         } catch (\Exception $e) {
             return back()->with('error', 'Failed to load dashboard: ' . $e->getMessage());
         }
@@ -162,5 +186,12 @@ class ClientController extends Controller
         } catch (\Exception $e) {
             return back()->with('error', 'Failed to mark notifications as read: ' . $e->getMessage());
         }
+    }
+    public function index()
+    {
+        // Only approved businesses
+        $businesses = Business::where('status', 'approved')->get();
+
+        return view('frontend.services', compact('businesses'));
     }
 }

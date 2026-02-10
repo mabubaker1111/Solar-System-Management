@@ -2,16 +2,21 @@
 
 namespace App\Models\Client;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 
-class Client extends Authenticatable
+class Client extends Model
 {
-    use Notifiable;
-
     protected $fillable = [
-        'name', 'email', 'phone', 'address', 'role', 'status', 'password',
+        'user_id',
+        'phone',
+        'address',
+        'city',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(\App\Models\User::class);
+    }
 
     public function queries()
     {

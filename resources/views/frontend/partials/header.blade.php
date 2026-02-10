@@ -72,10 +72,10 @@
       <div class="modal-body">
         <!-- Role Dropdown -->
         
-        <select id="loginRoleSelect" class="form-select mb-3">
-          <option value="client" selected>Client</option>
+        <select id="loginRoleSelect" class="form-select mb-3" style="display: none">
+          {{-- <option value="client" selected>Client</option>
           <option value="worker">Worker</option>
-          <option value="business">Business</option>
+          <option value="business">Business</option> --}}
         </select>
 
         <!-- Forms -->

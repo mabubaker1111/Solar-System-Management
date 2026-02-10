@@ -124,10 +124,10 @@
                     class="d-block py-2 px-3 mb-1 rounded {{ request()->routeIs('superadmin.workers') ? 'bg-white text-primary fw-bold' : 'text-white' }}">
                     <i class="bi bi-person-workspace me-2"></i> All Workers
                 </a>
-                <a href="{{ route('superadmin.requests.worker') }}" 
+                {{-- <a href="{{ route('superadmin.requests.worker') }}" 
                     class="d-block py-2 px-3 mb-1 rounded {{ request()->routeIs('superadmin.requests.worker') ? 'bg-white text-primary fw-bold': 'text-white'}}">
                     <i class="bi bi-hourglass-split me-2"></i> Worker Requests
-                </a>
+                </a> --}}
 
                 <!-- Requests -->
                 <h6 class="text-white-50 mt-4 mb-2">Requests</h6>
@@ -149,7 +149,7 @@
                     </a>
                 </li> --}}
                 <!-- Notifications -->
-                <h6 class="text-white-50 mb-2">Notifications</h6>
+                <h6 class="text-white-50 mt-4 mb-2">Notifications</h6>
                 <a href="{{ route('superadmin.notifications') }}"
                     class="d-block py-2 px-3 mb-1 rounded {{ request()->routeIs('superadmin.notifications') ? 'bg-white text-primary fw-bold' : 'text-white' }}">
                     <i class="bi bi-bell me-2"></i> Notifications
